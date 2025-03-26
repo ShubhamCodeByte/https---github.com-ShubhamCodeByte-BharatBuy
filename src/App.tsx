@@ -12,6 +12,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { PrivateRoute } from "./pages/PrivateRoute";
 import { Profile } from "./authentications/Profile";
 import { ProductDetails } from "./pages/ProductDetails";
+import { Checkout } from "./pages/CheckOut";
 
 
 import { AdminDashboard } from "./pages/AdminDashboard";
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/products/:category?" element={<ProductPage />} />
           <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/Checkout" element={<Checkout />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/product/:id" element={<ProductDetails />} />
 

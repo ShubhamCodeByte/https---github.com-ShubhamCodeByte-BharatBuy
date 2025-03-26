@@ -10,19 +10,20 @@ const Hero: React.FC = () => {
   useEffect(() => {
     GetProductListWithRating().then((data) => {
       const categories = [...new Set(data.map((product: ProductRatingQuantity) => product.category))];
-      const bestProducts = categories.map((category) => {
-        return data
-          .filter((product: ProductRatingQuantity) => product.category === category)
-          .sort((a, b) => (b.rating?.rate || 0) - (a.rating?.rate || 0))[0];
-      });
+      const bestProducts = categories.map((category) =>
+        data
+          .filter((product) => product.category === category)
+          .sort((a, b) => (b.rating?.rate || 0) - (a.rating?.rate || 0))[0]
+      );
       setFeaturedProducts(bestProducts);
     });
   }, []);
 
   useEffect(() => {
+    if (featuredProducts.length === 0) return;
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % featuredProducts.length);
-    }, 3000);
+    }, 4000); // Slower transition for better UX
     return () => clearInterval(interval);
   }, [featuredProducts]);
 
@@ -31,18 +32,22 @@ const Hero: React.FC = () => {
   const currentProduct = featuredProducts[currentIndex];
 
   return (
-    <div className="relative w-full h-screen bg-gray-900 text-white flex items-center justify-center">
+    <div className="relative w-full min-h-[70vh] md:min-h-screen bg-gray-900 text-white flex items-center justify-center">
       {/* Background Image */}
       <img
         src={currentProduct.image}
         alt={currentProduct.title}
-        className="absolute w-full h-full object-cover opacity-50"
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
       />
 
       {/* Overlay Content */}
-      <div className="relative z-10 text-center p-6">
-        <h1 className="text-4xl font-bold">Discover the Best in {currentProduct.category}</h1>
-        <p className="mt-2 text-lg italic">"Quality products for a better life"</p>
+      <div className="relative z-10 text-center p-6 max-w-2xl mx-auto animate-fadeIn">
+        <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
+          Discover the Best in {currentProduct.category}
+        </h1>
+        <p className="mt-3 text-base md:text-lg italic text-gray-200">
+          "Quality products for a better life"
+        </p>
 
         {/* Buttons */}
         <div className="mt-6 flex gap-4 justify-center">

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState ,  } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -17,6 +18,7 @@ export const Login: React.FC = () => {
     if (user.email === email && user.password === password) {
       localStorage.setItem("token", "fake-jwt-token");
       alert("Login successful!");
+      navigate("/profile");
     } else {
       alert("Invalid credentials.");
     }

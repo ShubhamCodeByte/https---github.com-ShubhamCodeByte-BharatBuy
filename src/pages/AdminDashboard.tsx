@@ -38,35 +38,38 @@ export const AdminDashboard: React.FC = () => {
   ];
 
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row  ">
+      {/* Sidebar - Takes full width on small screens */}
       <AdminSidebar />
-      <main className="flex-1 p-6">
-        <h1 className="text-3xl font-bold mb-6">Dashboard Overview</h1>
+      
+      <main className="flex-1 p-4 sm:p-6">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 ml-7">Dashboard Overview</h1>
 
-        <div className="grid grid-cols-3 gap-6">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Total Sales */}
-          <div className="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
+          <div className="bg-blue-500 text-white p-5 sm:p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-lg font-semibold">Total Sales</h2>
             <p className="text-2xl font-bold mt-2">${totalSales.toLocaleString()}</p>
           </div>
 
           {/* Total Orders */}
-          <div className="bg-green-500 text-white p-6 rounded-lg shadow-lg">
+          <div className="bg-green-500 text-white p-5 sm:p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-lg font-semibold">Total Orders</h2>
             <p className="text-2xl font-bold mt-2">{totalOrders}</p>
           </div>
 
           {/* Total Products */}
-          <div className="bg-red-500 text-white p-6 rounded-lg shadow-lg">
+          <div className="bg-red-500 text-white p-5 sm:p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-lg font-semibold">Total Products</h2>
             <p className="text-2xl font-bold mt-2">{totalProducts}</p>
           </div>
         </div>
 
         {/* Charts Section */}
-        <div className="grid grid-cols-2 gap-6 mt-6">
-          {/* Pie Chart for Orders Breakdown */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          {/* Pie Chart - Orders Breakdown */}
+          <div className="bg-white p-5 sm:p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Order Status Breakdown</h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -81,8 +84,8 @@ export const AdminDashboard: React.FC = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* Bar Chart for Sales Per Month */}
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+          {/* Bar Chart - Monthly Sales */}
+          <div className="bg-white p-5 sm:p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-semibold mb-4">Monthly Sales</h2>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={salesData}>

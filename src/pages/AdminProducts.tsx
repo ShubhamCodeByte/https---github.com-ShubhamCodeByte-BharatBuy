@@ -32,19 +32,23 @@ export const AdminProducts: React.FC = () => {
   };
 
   const handleEdit = (updatedProduct: ProductRatingQuantity) => {
-    setProducts((prevProducts) => prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product)));
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
+    );
   };
 
   return (
-     <div className="flex">
+    <div className="flex flex-col lg:flex-row">
       <AdminSidebar />
-      <main className="flex-1 p-6">
-        <h1 className="text-3xl font-bold mb-6">Manage Products</h1>
+      <main className="flex-1 p-4 sm:p-6">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6">Manage Products</h1>
+        
         {error && <p className="text-red-500">{error}</p>}
+
         {loading ? (
-          <p>Loading products...</p>
+          <p className="text-center text-lg">Loading products...</p>
         ) : (
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {products.map((product) => (
               <AdminProductCard key={product.id} product={product} onDelete={handleDelete} onEdit={handleEdit} />
             ))}

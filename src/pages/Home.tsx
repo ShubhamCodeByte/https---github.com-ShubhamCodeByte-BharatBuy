@@ -4,7 +4,6 @@ import FeaturedProduct from "../components/FeaturedProduct";
 import Categories from "../components/Categories";
 import Testimonials from "../components/Testimonials";
 import Newsletter from "../components/Newsletter";
-
 import LoginRegister from "../components/LoginRegister";
 
 export const Home: React.FC = () => {
@@ -14,34 +13,30 @@ export const Home: React.FC = () => {
       <Hero />
 
       {/* Featured Products Section */}
-      <section className="container mx-auto py-12">
-        
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <FeaturedProduct />
       </section>
 
       {/* Categories Section */}
-      <section className="container mx-auto py-12">
-        <h2 className="text-3xl font-bold text-center mb-10">Explore Categories</h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10">Explore Categories</h2>
         <Categories />
       </section>
 
       {/* Testimonials Section */}
-      <section className="container mx-auto py-12 bg-gradient-to-l from-blue-500 to-pink-600 text-white">
-
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gradient-to-l from-blue-500 to-pink-600 text-white">
         <Testimonials />
       </section>
 
       {/* Newsletter Signup */}
-      <section className="container mx-auto py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-0 lg:px-0 py-12">
         <Newsletter />
       </section>
 
       {/* Login/Register Section */}
-      <div className=" bottom-0 w-full">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-8 flex justify-center items-center">
         <LoginRegister />
       </div>
-
-    
     </div>
   );
 };

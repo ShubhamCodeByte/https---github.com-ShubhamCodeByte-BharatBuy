@@ -6,7 +6,7 @@ export const CategorySidebar: React.FC = () => {
   const { category } = useParams<{ category?: string }>();
 
   return (
-    <div className="w-1/6 p-5 bg-gradient-to-b from-gray-100 to-gray-200 min-h-screen shadow-lg">
+    <div className=" p-5 bg-gradient-to-b from-gray-100 to-gray-200 h-full shadow-lg">
       <h2 className="text-xl font-semibold mb-4 text-gray-700">Categories</h2>
       <ul className="space-y-2">
         {categories.map((cat) => (

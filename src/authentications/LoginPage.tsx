@@ -6,10 +6,17 @@ export const LoginPage: React.FC = () => {
   const [isOnLogin, setIsOnLogin] = useState<boolean>(true);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
-      <div className="bg-white bg-opacity-90 p-8 rounded-2xl shadow-xl flex w-2/3">
-        {/* Left Side - Quotes Section */}
-        <div className="w-1/2 flex flex-col justify-center items-center p-6 bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-l-2xl">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r rounded-2xl from-blue-500 to-purple-600">
+      <div className="bg-white bg-opacity-90 p-4 rounded-2xl shadow-xl flex flex-col lg:flex-row w-11/12 lg:w-2/3">
+        
+
+        {/* Right Side - Form Section */}
+        <div className="w-full lg:w-1/2 p-6">
+          {isOnLogin ? <Login  /> : <Register  />}
+        </div>
+
+     {/* Left Side - Quotes Section */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-b-2xl  lg:rounded-r-2xl ">
           <blockquote className="text-lg italic text-center">
             {isOnLogin 
               ? "Secure your account and unlock endless possibilities." 
@@ -22,11 +29,6 @@ export const LoginPage: React.FC = () => {
           >
             {isOnLogin ? "New User? Register" : "Already have an account? Login"}
           </button>
-        </div>
-
-        {/* Right Side - Form Section */}
-        <div className="w-1/2 p-6">
-          {isOnLogin ? <Login  /> : <Register  />}
         </div>
       </div>
     </div>

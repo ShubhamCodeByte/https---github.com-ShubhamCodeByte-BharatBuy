@@ -7,7 +7,7 @@ const LoginRegister: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-30">
       <h2 className="text-2xl font-bold mb-4">Join Us Today!</h2>
-      <p className="mb-6 text-gray-600">Sign in or create an account to enjoy seamless shopping.</p>
+      <p className="mb-6 text-gray-600 text-center">Sign in or create an account to enjoy seamless shopping.</p>
       <div className="flex gap-4">
         <button
           onClick={() => navigate("/LoginPage")}

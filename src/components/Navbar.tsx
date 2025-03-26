@@ -1,71 +1,108 @@
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, User } from "lucide-react";
-import { FaStore } from "react-icons/fa";
+import { FaStore, FaBars } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { IoArrowBack } from "react-icons/io5";
-import { useState } from "react";
 import { SearchBox } from "./SearchBox";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("token");
   const [showSearch, setShowSearch] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement | null>(null);
 
-  const handleProfileClick = () => {
-    if (!isLoggedIn) {
-      alert("Please login or register to access your profile.");
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowSearch(false);
+      }
+    };
+
+    if (showSearch) {
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      navigate("/profile");
+      document.removeEventListener("mousedown", handleClickOutside);
     }
-  };
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSearch]);
 
   return (
-    <nav className="bg-white text-black p-4 shadow-lg relative">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Back Button */}
-        <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-900 hover:scale-125 transition flex items-center absolute left-6">
-          <IoArrowBack size={22} />
-        </button>
+    <div>
+      <nav className="bg-white shadow-md fixed top-0 w-full z-50">
+        <div className=" mx-auto flex items-center justify-between p-4 relative">
+          <div className="flex items-center gap-4">
+            <button onClick={() => navigate(-1)} className="text-gray-600 hover:text-gray-900 hover:scale-125 transition  ">
+              <IoArrowBack size={22} />
+            </button>
+            <Link to="/" className="flex items-center text-2xl font-bold  text-red-500 hover:text-red-600 transition">
+              <FaStore size={28} />
+              BharatBuy
+            </Link>
+          </div>
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center text-2xl text-red-500 font-bold gap-2 hover:text-red-300">
-          <FaStore size={28} />
-          BharatBuy
-        </Link>
-
-        {/* Navigation Links */}
-        <div className="flex gap-6 text-lg">
-          <Link to="/" className="hover:text-blue-300">Home</Link>
-          <Link to="/ProductPage" className="hover:text-blue-300">Product</Link>
-
-          {/* Search Dropdown */}
-          <div className="relative">
-            <button
-              className="hover:text-blue-300 flex items-center gap-1"
-              onClick={() => setShowSearch(!showSearch)}
+          <div className="hidden md:flex gap-6 text-lg">
+            <Link to="/" className="hover:text-blue-400 transition">Home</Link>
+            <Link to="/ProductPage" className="hover:text-blue-400 transition">Products</Link>
+            <button 
+              className="flex items-center gap-1 hover:text-blue-400 transition"
+              onClick={() => setShowSearch(true)}
             >
               <FiSearch size={20} /> Search
             </button>
+          </div>
 
-            {showSearch && <SearchBox />}
+          <div className="flex items-center gap-6">
+          <button
+                 onClick={() => {   
+                        if (isLoggedIn) {
+                           navigate("/profile");
+                         } else {
+                           alert("You need to log in first!");
+                           navigate("/LoginPage");
+                         }
+                      }}
+                      className="hover:text-gray-600 transition"
+            >
+               <User size={24} />
+            </button>
+
+            {!isLoggedIn && (
+              <Link to="/LoginPage" className="hidden md:block hover:text-blue-400 transition">
+                Login / Register
+              </Link>
+            )}
+            <Link to="/Cart" className="hover:text-gray-600 transition">
+              <ShoppingCart size={24} />
+            </Link>
+            <button className="md:hidden text-gray-700" onClick={() => setMenuOpen(!menuOpen)}>
+              <FaBars size={24} />
+            </button>
           </div>
         </div>
 
-        {/* Right Icons */}
-        <div className="flex gap-6 items-center">
-          <button onClick={handleProfileClick} className="hover:text-gray-300">
-            <User size={24} />
-          </button>
+        {menuOpen && (
+          <div className="md:hidden flex flex-col bg-white shadow-md p-4">
+            <Link to="/" className="py-2 hover:text-blue-400 transition" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/ProductPage" className="py-2 hover:text-blue-400 transition" onClick={() => setMenuOpen(false)}>Products</Link>
+            <button className="py-2 flex items-center gap-1 hover:text-blue-400 transition" onClick={() => setShowSearch(true)}>
+              <FiSearch size={20} /> Search
+            </button>
+          </div>
+        )}
+      </nav>
 
-          {!isLoggedIn && (
-            <Link to="/LoginPage" className="hover:text-blue-300">Login / Register</Link>
-          )}
-
-          <Link to="/Cart" className="hover:text-gray-300">
-            <ShoppingCart size={24} />
-          </Link>
+      {showSearch && (
+        <div ref={searchRef} className="absolute top-16 left-1/2 transform -translate-x-1/2 w-full md:w-1/2 bg-white shadow-lg p-4 rounded-b-xl z-50 transition-all duration-300 ease-in-out">
+          <SearchBox setShowSearch={setShowSearch} />
         </div>
-      </div>
-    </nav>
+      )}
+
+      <div className="pt-17"></div>
+    </div>
   );
 };

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Product,ProductRatingQuantity } from "../types/Product";
+import React, { useEffect, useState, useRef } from "react";
+import { Product, ProductRatingQuantity } from "../types/Product";
 import { ProductCard } from "./ProductCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { GetProductListWithRating } from "../services/GetProductList";
 
 const FeaturedProduct: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     GetProductListWithRating().then((data) => {
@@ -15,37 +15,40 @@ const FeaturedProduct: React.FC = () => {
     });
   }, []);
 
-  const scrollLeft = () => {
-    setScrollPosition((prev) => Math.max(prev - 300, 0));
-  };
-
-  const scrollRight = () => {
-    setScrollPosition((prev) => Math.min(prev + 300, products.length * 200));
+  const scroll = (direction: "left" | "right") => {
+    if (containerRef.current) {
+      const scrollAmount = direction === "left" ? -300 : 300;
+      containerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
   };
 
   return (
     <div className="relative w-full p-6 bg-gray-100">
-      <h2 className="text-3xl font-bold text-center mb-4">Featured Products</h2>
-      <div className="relative overflow-hidden">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Featured Products</h2>
+
+      <div className="relative">
         <div
-          className="flex gap-4 transition-transform"
-          style={{ transform: `translateX(-${scrollPosition}px)` }}
+          ref={containerRef}
+          className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-hide snap-x snap-mandatory"
         >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} className="snap-start flex-shrink-0 w-60 sm:w-72">
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       </div>
-      {/* Scroll Buttons */}
+
+      {/* Scroll Buttons (Hidden on small screens) */}
       <button
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
-        onClick={scrollLeft}
+        className="hidden md:flex absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+        onClick={() => scroll("left")}
       >
         <FaArrowLeft />
       </button>
       <button
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
-        onClick={scrollRight}
+        className="hidden md:flex absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+        onClick={() => scroll("right")}
       >
         <FaArrowRight />
       </button>

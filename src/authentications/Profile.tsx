@@ -22,7 +22,16 @@ export const Profile: React.FC = () => {
           onClick={() => navigate("/dashboard")}
           className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4"
         >
-          Back to Dashboard
+          Go to Admin Dashboard
+        </button>
+        <button
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/LoginPage");
+          }}
+          className="bg-red-500 text-white px-4 py-2 rounded-lg mt-2"
+        >
+          Logout
         </button>
       </div>
     </div>

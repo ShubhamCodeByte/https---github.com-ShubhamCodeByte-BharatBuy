@@ -48,29 +48,65 @@ export const Register: React.FC = () => {
 
     alert("Registration successful!");
     setFormData({ username: "", email: "", phone: "", password: "" });
+    setErrors({});
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h3 className="text-3xl font-semibold mb-6 text-gray-800">Register</h3>
-      <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-md">
-        <input type="text" name="username" placeholder="Username"
-          className="border p-3 rounded-xl" value={formData.username} onChange={handleChange} />
-        {errors.username && <p className="text-red-500">{errors.username}</p>}
+    <div className="flex flex-col items-center px-4 sm:px-6 md:px-8">
+      <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-gray-800">Register</h3>
+      <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-sm sm:max-w-md">
+        <div className="w-full">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            className="border p-2 sm:p-3 rounded-xl w-full"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+        </div>
 
-        <input type="email" name="email" placeholder="Email"
-          className="border p-3 rounded-xl" value={formData.email} onChange={handleChange} />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}
+        <div className="w-full">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="border p-2 sm:p-3 rounded-xl w-full"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        </div>
 
-        <input type="text" name="phone" placeholder="Phone Number"
-          className="border p-3 rounded-xl" value={formData.phone} onChange={handleChange} />
-        {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+        <div className="w-full">
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            className="border p-2 sm:p-3 rounded-xl w-full"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+        </div>
 
-        <input type="password" name="password" placeholder="Password"
-          className="border p-3 rounded-xl" value={formData.password} onChange={handleChange} />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}
+        <div className="w-full">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="border p-2 sm:p-3 rounded-xl w-full"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+        </div>
 
-        <button type="submit" className="bg-blue-500 text-white px-6 py-3 rounded-xl">
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-5 sm:px-6 py-2 sm:py-3 rounded-xl hover:bg-blue-600 transition w-full"
+        >
           Register
         </button>
       </form>

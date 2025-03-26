@@ -25,7 +25,7 @@ export const AdminProductCard: React.FC<AdminProductCardProps> = ({ product, onP
 
   return (
     <div
-      className="relative cursor-pointer rounded-lg p-4 shadow-md bg-white group transition-transform duration-300 hover:shadow-lg"
+      className="relative cursor-pointer rounded-lg p-4 shadow-md bg-white group transition-transform duration-300 hover:shadow-lg min-w-40"
       onClick={() => navigate(`/admin/product/${product.id}`)}
     >
       <div className="flex justify-center overflow-hidden rounded-md">
@@ -38,9 +38,9 @@ export const AdminProductCard: React.FC<AdminProductCardProps> = ({ product, onP
       <h2 className="text-lg font-semibold truncate">{product.title}</h2>
       <p className="text-gray-700">${product.price}</p>
 
-      <div className="flex justify-between mt-3 relative">
+      <div className="flex justify-between mt-3 relative flex-col gap-1 md:flex-row">
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white px-4 py-2 rounded-4xl hover:bg-blue-600 transition"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/admin/edit-product/${product.id}`);
@@ -49,7 +49,7 @@ export const AdminProductCard: React.FC<AdminProductCardProps> = ({ product, onP
           Edit
         </button>
         <button
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+          className="bg-red-500 text-white px-4 py-2 rounded-4xl hover:bg-red-600 transition"
           onClick={(e) => {
             e.stopPropagation();
             handleDelete();

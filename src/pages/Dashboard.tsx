@@ -78,7 +78,7 @@ export const Dashboard = () => {
           {/* Show loading state */}
          
   <>
-    <p className="mb-2"><strong>Username:</strong> {userName }</p>
+    <p className="mb-2"><strong>Admin:</strong> {userName }</p>
    
   </>
 
